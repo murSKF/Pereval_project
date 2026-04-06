@@ -12,7 +12,18 @@ def submit_data():
     try:
         data = request.json
 
-        # --- USER ---
+        # --- ВАЛИДАЦИЯ ---
+        if not data or 'user' not in data:
+            return jsonify({
+                "status": 400,
+                "message": "Некорректные данные"
+            })
+        
+        user = data['user']
+        coords = data['coords']
+
+
+        # --- USER (с проверкой) ---
         user = data.get('user')
 
         if not user:
