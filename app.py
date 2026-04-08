@@ -87,6 +87,65 @@ def submit_data():
         })
     
 
+@app.route('/submitData/<int:pereval_id>', methods=['GET'])
+def get_pereval(pereval_id):
+    try:
+        data = db.get_pereval_by_id(pereval_id)
+
+        if not data:
+            return jsonify({
+                "status": 404,
+                "message": "Перевал не найден"
+            })
+        
+        return jsonify(data)
+    
+    except Exception as e:
+        return jsonify({
+            "status": 505,
+            "message": str(e)
+        })
+    
+
+@app.route('/submitData/<int:pereval_id>', methods=['PATCH'])
+def update_pereval(pereval_id):
+    try:
+        data = request.json
+
+        result = db.update_pereval(pereval_id, data)
+
+        return jsonify(result)
+    
+    except Exception as e:
+        db.connection.rollback()
+        return jsonify({
+            "state": 0,
+            "message": str(e)
+        })
+    
+
+@app.route('/submitData/', methods=['GET'])
+def get_by_email():
+    try:
+        email = request.args.get('user_email')
+
+        if not email:
+            return jsonify({
+                "status": 400,
+                "message": "Не указан email"
+            })
+        
+        data = db.get_pereval_by_email(email)
+
+        return jsonify(data)
+    
+    except Exception as e:
+        return jsonify({
+            "status": 500,
+            "message": str(e)
+        })
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
