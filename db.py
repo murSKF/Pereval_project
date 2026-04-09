@@ -7,7 +7,11 @@ from psycopg2.extras import RealDictCursor
 load_dotenv()
 
 class FSTRDatabase:
-    def __init__(self):
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
+        self.connection = None
+    
+    def connect(self):
         try:
             self.connection = psycopg2.connect(
                 host = os.getenv('FSTR_DB_HOST'),
@@ -17,12 +21,16 @@ class FSTRDatabase:
                 password = os.getenv('FSTR_DB_PASS'),
             )
             print("Подключение к БД успешно")
+            return True
         except Exception as e:
-            print("Ошибка подключения:", e)
+            print(f"Ошибка подключения к БД: {type(e).__name__}: {e}")
+            self.connect = None
+            return False
 
     def close(self):
         if self.connection:
             self.connection.close()
+            self.connection = None
 
 
     def add_user(self, email, phone, fam, name, otc):
