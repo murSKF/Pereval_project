@@ -8,6 +8,7 @@ load_dotenv()
 
 class FSTRDatabase:
     def __init__(self):
+        self.connection = None
         try:
             self.connection = psycopg2.connect(
                 host = os.getenv('FSTR_DB_HOST'),
