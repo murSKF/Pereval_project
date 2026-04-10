@@ -91,11 +91,11 @@ https://pereval-project.onrender.com
 
 ## Переменные окружения
 ### Для подключения к БД используются:
-FSTR_DB_HOST=
-FSTR_DB_PORT=
-FSTR_DB_NAME=
-FSTR_DB_LOGIN=
-FSTR_DB_PASS=
+* FSTR_DB_HOST=
+* FSTR_DB_PORT=
+* FSTR_DB_NAME=
+* FSTR_DB_LOGIN=
+* FSTR_DB_PASS=
 
 ---
 
