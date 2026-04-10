@@ -65,30 +65,41 @@ https://pereval-project.onrender.com
   "autumn_level": "1B",
   "spring_level": "2A"
 }
+```
 
+---
 
-GET/submitData/{id} - Получить перевал по id
-PATCH/submitData/{id} - Редактировать перевал (только если статус = new)
-GET/submitData/?user_email=<email> - Получить все перевалы пользователя
+## Методы API
+### GET/submitData/{id}
+Получить перевал по id
 
+### PATCH/submitData/{id}
+Редактировать перевал (только если статус = new)
 
-Структура БД:
+### GET/submitData/?user_email=<email>
+Получить все перевалы пользователя
+
+---
+
+## Структура БД:
 * users - пользователи
 * coords - координаты
 * pereval_added - перевалы
 * pereval_images - изображения
 
+---
 
-Переменные окружения
-Для подключения к БД используются:
+## Переменные окружения
+### Для подключения к БД используются:
 FSTR_DB_HOST=
 FSTR_DB_PORT=
 FSTR_DB_NAME=
 FSTR_DB_LOGIN=
 FSTR_DB_PASS=
 
+---
 
-Локальный запуск
+## Локальный запуск
 git clone https://github.com/murSKF/Pereval_project.git
 cd Pereval_project
 
@@ -99,8 +110,10 @@ pip install -r requirements.txt
 
 python app.py
 
+---
 
-Деплой - проект задеплоен на платформе Render
+## Деплой
+### проект задеплоен на платформе Render
 
 
 
