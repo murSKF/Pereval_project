@@ -1,4 +1,8 @@
 import flask
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 import pytest
 from app import app, get_by_email
 
@@ -35,3 +39,53 @@ def test_submit_and_get(client):
 
     data = response.get_json()
     assert data["title"] == "API тест"
+
+
+def test_update_pereval(client):
+    # создаем
+    response = client.post('/submitData', json={
+        "user": {
+            "email": "patch@test.com",
+            "fam": "Петров",
+            "name": "Иван"
+        },
+        "coords": {
+            "latitude": 45.0,
+            "longitude": 7.0
+        },
+        "title": "Старое имя"
+    })
+
+    pereval_id = response.get_json()["id"]
+
+    # обновляем
+    response = client.patch(f'/submitData/{pereval_id}', json={
+        "title": "Новое имя"
+    })
+
+    assert response.status_code == 200
+
+
+def test_get_by_email(client):
+    email = "email@test.com"
+
+    client.post('/submitData', json={
+        "user": {
+            "email": email,
+            "fam": "Петров",
+            "name": "Иван"
+        },
+        "coords": {
+            "latitude": 45.0,
+            "longitude": 7.0
+        },
+        "title": "Email тест"
+    })
+
+    response = client.get(f'/submitData/?user_email={email}')
+    assert response.status_code == 200
+
+    data = response.get_json()
+    assert isinstance(data, list)
+
+

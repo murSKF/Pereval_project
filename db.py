@@ -26,7 +26,7 @@ class FSTRDatabase:
             self.connection.close()
 
 
-    def add_user(self, email, phone, fam, name, otc):
+    def add_user(self, email, phone=None, fam=None, name=None, otc=None):
         with self.connection.cursor() as cursor:
             cursor.execute("""
                 INSERT INTO users (email, phone, fam, name, otc)

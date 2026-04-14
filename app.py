@@ -202,7 +202,7 @@ def submit_data():
 
         return jsonify({
             "status": 200,
-            "user_id": user_id
+            "id": pereval_id
         })
     
     except Exception as e:
